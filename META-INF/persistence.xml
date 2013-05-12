@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="mhvi">
+		<class>com.yenrof.mhvi.model.MedicalHistory</class>
+		<class>com.yenrof.mhvi.model.MedicationSurgeryHistory</class>
+		<class>com.yenrof.mhvi.model.Medication</class>
+		<class>com.yenrof.mhvi.model.SexualHistory</class>
+		<class>com.yenrof.mhvi.model.SixMonthHistory</class>
+		<class>com.yenrof.mhvi.model.Surgery</class>
+		<class>com.yenrof.mhvi.model.Patient</class>
+		<class>com.yenrof.mhvi.model.Address</class>
+		<class>com.yenrof.mhvi.model.ContactPhone</class>
+		<class>com.yenrof.mhvi.model.ContactEmail</class>
+		<class>com.yenrof.mhvi.model.PreviousEvaluation</class>
+		<class>com.yenrof.mhvi.model.PreviousTreatment</class>
+		<class>com.yenrof.mhvi.model.RiskFactor</class>
+		<class>com.yenrof.mhvi.model.TestosteroneDeficiency</class>
+	</persistence-unit>
+</persistence>
