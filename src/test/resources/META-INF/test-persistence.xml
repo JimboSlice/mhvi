@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0"
+   xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="
+        http://java.sun.com/xml/ns/persistence
+        http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+   <persistence-unit name="myTestJPA">
+		<class>com.yenrof.mhvi.model.MedicalHistory</class>
+		<class>com.yenrof.mhvi.model.MedicationSurgeryHistory</class>
+		<class>com.yenrof.mhvi.model.Medication</class>
+		<class>com.yenrof.mhvi.model.SexualHistory</class>
+		<class>com.yenrof.mhvi.model.SixMonthHistory</class>
+		<class>com.yenrof.mhvi.model.Surgery</class>
+		<class>com.yenrof.mhvi.model.Patient</class>
+		<class>com.yenrof.mhvi.model.Address</class>
+		<class>com.yenrof.mhvi.model.ContactPhone</class>
+		<class>com.yenrof.mhvi.model.ContactEmail</class>
+		<class>com.yenrof.mhvi.model.TestosteroneDeficiency</class>
+		<class>com.yenrof.mhvi.model.PreviousEvaluation</class>
+		<class>com.yenrof.mhvi.model.PreviousTreatment</class>
+		<class>com.yenrof.mhvi.model.RiskFactor</class>
+    <jta-data-source>java:jboss/datasources/MySqlTestDS</jta-data-source>
+    <properties>
+       <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+       <property name="hibernate.show_sql" value = "true" />
+       <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+   </properties>
+    </persistence-unit>
+</persistence>

@@ -1,0 +1,17 @@
+<script type="text/template" id="patient-tmpl">
+<% var addHeader = true;
+_.each(patients, function(patient) { 
+    if ( Modernizr.mq( "only all and (max-width: 640px)" ) ) {
+        addHeader = true;
+    }
+    %>
+	<div class="row patient">
+		<div class="col"><% if ( addHeader ) { %><div class="head">Id</div><% } %><div class="data"><%=patient.id%></div></div>
+		<div class="col"><% if ( addHeader ) { %><div class="head">First Name</div><% } %><div class="data"><%=patient.firstName%></div></div>
+		<div class="col"><% if ( addHeader ) { %><div class="head">Last Name</div><% } %><div class="data"><%=patient.lastName%></div></div>
+		<div class="col"><% if ( addHeader ) { %><div class="head">SSN</div><% } %><div class="data"><%=patient.ssn%></div></div>
+		<div class="col"><% if ( addHeader ) { %><div class="head">REST URL</div><% } %><div class="data"><a href="rest/patients/<%=patient.id%>" rel="external" target="_blank" class="resturl ui-link">JSON</a></div></div>
+	</div>
+<% addHeader = false;
+}); %>
+</script>
