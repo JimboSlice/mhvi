@@ -82,7 +82,7 @@ public class PatientService {
             //Validates Patient using bean validation
             validatePatient(Patient);
 
-            registration.register(Patient);
+            repository.register(Patient);
 
             //Create an "ok" response
             builder = Response.ok();

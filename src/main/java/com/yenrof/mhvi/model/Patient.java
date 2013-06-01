@@ -1,8 +1,6 @@
 package com.yenrof.mhvi.model;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.io.Serializable;
 
 import javax.persistence.CascadeType;
@@ -11,12 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-//import javax.persistence.JoinColumn;
-//import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-//import javax.persistence.CascadeType;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
@@ -89,52 +83,56 @@ public class Patient implements Serializable {
 	private String referringPhysicianSpecialty;
 
 	// bi-directional one-to-one association to MedicalHistory
-	@OneToOne(mappedBy = "patient", cascade=CascadeType.ALL)
+	@OneToOne(mappedBy = "patient", cascade = CascadeType.ALL)
 	private MedicalHistory medicalHistory;
 
 	// bi-directional one-to-one association to MedicationSurgeryHistory
-	@OneToOne(mappedBy = "patient", cascade=CascadeType.ALL)
+	@OneToOne(mappedBy = "patient", cascade = CascadeType.ALL)
 	private MedicationSurgeryHistory medicationSurgeryHistory;
 
 	// bi-directional one-to-one association to SexualHistory
-	@OneToOne(mappedBy = "patient", cascade=CascadeType.ALL)
+	@OneToOne(mappedBy = "patient", cascade = CascadeType.ALL)
 	private SexualHistory sexualHistory;
 
 	// bi-directional one-to-one association to Address
-	@OneToOne(mappedBy = "patient", cascade=CascadeType.ALL)
+	@OneToOne(mappedBy = "patient", cascade = CascadeType.ALL)
 	private Address address;
 
 	// bi-directional one-to-one association to PreviousTreatment
-	@OneToOne(mappedBy = "patient", cascade=CascadeType.ALL)
+	@OneToOne(mappedBy = "patient", cascade = CascadeType.ALL)
 	private PreviousTreatment previousTreatment;
 
 	// bi-directional one-to-one association to PreviousEvaluation
-	@OneToOne(mappedBy = "patient", cascade=CascadeType.ALL)
+	@OneToOne(mappedBy = "patient", cascade = CascadeType.ALL)
 	private PreviousEvaluation previousEvaluation;
 
 	// bi-directional one-to-one association to RiskFactor
-	@OneToOne(mappedBy = "patient", cascade=CascadeType.ALL)
+	@OneToOne(mappedBy = "patient", cascade = CascadeType.ALL)
 	private RiskFactor riskFactor;
 
 	// bi-directional one-to-one association to TestosteroneDeficiency
-	@OneToOne(mappedBy = "patient", cascade=CascadeType.ALL)
+	@OneToOne(mappedBy = "patient", cascade = CascadeType.ALL)
 	private TestosteroneDeficiency testosteroneDeficiency;
 
-	@OneToMany(mappedBy = "patient", cascade=CascadeType.ALL)
-	// we need to duplicate the physical information
-	private List<ContactEmail> contactEmails = new ArrayList<ContactEmail>(); // bi-directional
-																				// one-to-many
-																				// association
-																				// to
-																				// ContactEmail
+	// bi-directional one-to-one association to ContactEmail
+	@OneToOne(mappedBy = "patient", cascade = CascadeType.ALL)
+	private ContactEmail contactEmail;
 
-	@OneToMany(mappedBy = "patient", cascade=CascadeType.ALL)
-	// we need to duplicate the physical information
-	private List<ContactPhone> contactPhones = new ArrayList<ContactPhone>();// bi-directional
-																				// one-to-many
-																				// association
-																				// to
-																				// ContactPhone
+	// bi-directional one-to-one association to ContactPhone
+	@OneToOne(mappedBy = "patient", cascade = CascadeType.ALL)
+	private ContactPhone contactPhone;
+
+	/*
+	 * @OneToMany(mappedBy = "patient", cascade=CascadeType.ALL) // we need to
+	 * duplicate the physical information private List<ContactEmail>
+	 * contactEmails = new ArrayList<ContactEmail>(); // bi-directional //
+	 * one-to-many // association // to // ContactEmail
+	 * 
+	 * @OneToMany(mappedBy = "patient", cascade=CascadeType.ALL) // we need to
+	 * duplicate the physical information private List<ContactPhone>
+	 * contactPhones = new ArrayList<ContactPhone>();// bi-directional //
+	 * one-to-many // association // to // ContactPhone
+	 */
 
 	public int getBmi() {
 		return bmi;
@@ -312,13 +310,7 @@ public class Patient implements Serializable {
 		return serialVersionUID;
 	}
 
-	public List<ContactEmail> getContactEmail() {
-		return contactEmails;
-	}
-
-	public List<ContactPhone> getContactPhone() {
-		return contactPhones;
-	}
+	
 
 	public void setId(long id) {
 		this.id = id;
@@ -326,12 +318,28 @@ public class Patient implements Serializable {
 
 	public void addContactPhone(ContactPhone contactPhone) {
 		contactPhone.setAssociatedPatient(this);
-		this.contactPhones.add(contactPhone);
+		this.contactPhone=contactPhone;
 	}
 
 	public void addContactEmail(ContactEmail contactEmail) {
 		contactEmail.setAssociatedPatient(this);
-		this.contactEmails.add(contactEmail);
+		this.contactEmail=contactEmail;
+	}
+
+	public ContactEmail getContactEmail() {
+		return contactEmail;
+	}
+
+	public void setContactEmail(ContactEmail contactEmail) {
+		this.contactEmail = contactEmail;
+	}
+
+	public ContactPhone getContactPhone() {
+		return contactPhone;
+	}
+
+	public void setContactPhone(ContactPhone contactPhone) {
+		this.contactPhone = contactPhone;
 	}
 
 	public void addAddress(Address address) {
@@ -375,22 +383,6 @@ public class Patient implements Serializable {
 			TestosteroneDeficiency testosteroneDeficiency) {
 		testosteroneDeficiency.setAssociatedPatient(this);
 		this.testosteroneDeficiency = testosteroneDeficiency;
-	}
-
-	public List<ContactEmail> getContactEmails() {
-		return contactEmails;
-	}
-
-	public void setContactEmails(List<ContactEmail> contactEmails) {
-		this.contactEmails = contactEmails;
-	}
-
-	public List<ContactPhone> getContactPhones() {
-		return contactPhones;
-	}
-
-	public void setContactPhones(List<ContactPhone> contactPhones) {
-		this.contactPhones = contactPhones;
 	}
 
 	public Address getAddress() {

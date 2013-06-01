@@ -8,6 +8,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import com.yenrof.mhvi.model.*;
 
@@ -17,6 +18,10 @@ public class PatientRepository {
 
     @Inject
     private EntityManager em;
+    
+    @Inject
+    private Logger log;
+
 
     public Patient findById(Long id) {
         return em.find(Patient.class, id);
@@ -42,5 +47,10 @@ public class PatientRepository {
         // criteria.select(Patient).orderBy(cb.asc(Patient.get(Patient_.name)));
         criteria.select(Patient).orderBy(cb.asc(Patient.get("lastName")));
         return em.createQuery(criteria).getResultList();
+    }
+    
+    public void register(Patient patient) throws Exception {
+        log.info("Registering " + patient.getFirstName() + " " + patient.getLastName());
+        em.persist(patient);  
     }
 }

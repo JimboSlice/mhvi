@@ -21,7 +21,6 @@ import javax.persistence.OneToOne;
  * 
  */
 @Entity
-@XmlRootElement
 @Table(name = "MedicalHistory")
 @NamedQuery(name="MedicalHistory.findAll", query="SELECT m FROM MedicalHistory m")
 public class MedicalHistory implements java.io.Serializable {
@@ -76,8 +75,8 @@ public class MedicalHistory implements java.io.Serializable {
 	private boolean stroke;
 
 	@OneToOne
-    	@JoinColumn(name="patientId")
-    	private Patient patient;
+	@JoinColumn(name = "patientId")
+	private Patient patient;
 
 	public MedicalHistory() {
 	}

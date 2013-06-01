@@ -1,6 +1,6 @@
 package com.yenrof.mhvi.model;
-import java.io.Serializable;
 
+import java.io.Serializable;
 
 import javax.persistence.CascadeType;
 //import javax.persistence.CascadeType;
@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -21,31 +22,28 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@XmlRootElement
 @Table(name = "ContactEmail")
-
 public class ContactEmail implements Serializable {
-	   /** Default value included to remove warning. Remove or modify at will. **/
-	   private static final long serialVersionUID = 1L;
-	   
-	   @Id
-	   @GeneratedValue(strategy=GenerationType.IDENTITY)
-	   private long id;
-	
-	   @NotNull
-	   @Size(min = 1, max = 1, message = "1 letters to define email type")
-	   @Pattern(regexp = "[A-Za-z ]*", message = "Only letters")
-	   private String type;
+	/** Default value included to remove warning. Remove or modify at will. **/
+	private static final long serialVersionUID = 1L;
 
-	   @NotNull
-	   @NotEmpty
-	   @Email(message = "Invalid format")
-	   private String info;
-	   
-	   @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE} )
-	   @JoinColumn(name = "patientId" )	    
-	   private Patient patient;
-	   
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
+
+	@NotNull
+	@Size(min = 1, max = 1, message = "1 letters to define email type")
+	@Pattern(regexp = "[A-Za-z ]*", message = "Only letters")
+	private String type;
+
+	@NotNull
+	@NotEmpty
+	@Email(message = "Invalid format")
+	private String info;
+
+	@OneToOne
+	@JoinColumn(name = "patientId")
+	private Patient patient;
 
 	public long getId() {
 		return id;
@@ -82,11 +80,9 @@ public class ContactEmail implements Serializable {
 	public void setPatient(Patient patient) {
 		this.patient = patient;
 	}
-	
+
 	public void setAssociatedPatient(Patient patient) {
 		this.patient = patient;
 	}
 
-	
 }
-
