@@ -85,10 +85,6 @@ public class MedicalHistory implements java.io.Serializable {
 		return this.id;
 	}
 
-	public void setId(Long long1) {
-		this.id = long1;
-	}
-
 	public boolean getAnxiety() {
 		return this.anxiety;
 	}

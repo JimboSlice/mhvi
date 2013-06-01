@@ -70,12 +70,8 @@ public class MedicationSurgeryHistory implements java.io.Serializable {
 		this.medications = medications;
 	}
 
-	public Long  getId() {
+	public long  getId() {
 		return this.id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public boolean getAllergies() {
