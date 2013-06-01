@@ -23,7 +23,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@XmlRootElement
 @Table(name = "Patient", uniqueConstraints = @UniqueConstraint(columnNames = "ssn"))
 public class Patient implements Serializable {
 	/** Default value included to remove warning. Remove or modify at will. **/
