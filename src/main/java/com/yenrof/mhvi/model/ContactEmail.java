@@ -16,6 +16,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -42,6 +44,7 @@ public class ContactEmail implements Serializable {
 
 	@OneToOne
 	@JoinColumn(name = "patientId")
+	@JsonBackReference
 	private Patient patient;
 
 	public long getId() {
@@ -80,7 +83,7 @@ public class ContactEmail implements Serializable {
 		this.patient = patient;
 	}
 
-	public void setAssociatedPatient(Patient patient) {
+	public void setParent(Patient patient) {
 		this.patient = patient;
 	}
 
