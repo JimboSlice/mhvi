@@ -7,6 +7,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -51,6 +52,18 @@ public class PatientRepository {
     
     public void register(Patient patient) throws Exception {
         log.info("Registering " + patient.getFirstName() + " " + patient.getLastName());
+        patient.setCreateDate(new Date());
+        patient.setLastUpdateDate(new Date());
+        ContactEmail contactEmail = patient.getContactEmail();
+        if (contactEmail!=null ){
+        	patient.addContactEmail(contactEmail);
+        	em.persist(contactEmail);	
+        }
+        ContactPhone contactPhone = patient.getContactPhone();
+        if (contactPhone!=null ){
+        	patient.addContactPhone(contactPhone);
+        	em.persist(contactPhone);	
+        }
         em.persist(patient);  
     }
 }
