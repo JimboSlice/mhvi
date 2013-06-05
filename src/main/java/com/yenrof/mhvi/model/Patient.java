@@ -18,8 +18,11 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 
+
+
+
+import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
@@ -114,11 +117,13 @@ public class Patient implements Serializable {
 	private TestosteroneDeficiency testosteroneDeficiency;
 
 	// bi-directional one-to-one association to ContactEmail
+	@JsonManagedReference
 	@OneToOne(mappedBy = "patient", cascade = CascadeType.ALL)
 	private ContactEmail contactEmail;
 
 	// bi-directional one-to-one association to ContactPhone
 	@OneToOne(mappedBy = "patient", cascade = CascadeType.ALL)
+	@JsonManagedReference
 	private ContactPhone contactPhone;
 
 	/*
@@ -312,12 +317,12 @@ public class Patient implements Serializable {
 	}
 
 	public void addContactPhone(ContactPhone contactPhone) {
-		contactPhone.setAssociatedPatient(this);
+		contactPhone.setParent(this);
 		this.contactPhone=contactPhone;
 	}
 
 	public void addContactEmail(ContactEmail contactEmail) {
-		contactEmail.setAssociatedPatient(this);
+		contactEmail.setParent(this);
 		this.contactEmail=contactEmail;
 	}
 
