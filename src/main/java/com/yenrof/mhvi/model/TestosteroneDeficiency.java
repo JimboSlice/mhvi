@@ -2,6 +2,8 @@ package com.yenrof.mhvi.model;
 
 import javax.persistence.*;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+
 import java.util.Date;
 
 
@@ -72,6 +74,7 @@ public class TestosteroneDeficiency implements java.io.Serializable {
 	
 	@OneToOne
 	@JoinColumn(name="patientId")
+	@JsonBackReference
 	 private Patient patient;
 	
 

@@ -2,6 +2,9 @@ package com.yenrof.mhvi.model;
 
 import java.io.Serializable;
 
+
+import java.util.Date;
+
 //import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +15,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 //import javax.persistence.JoinColumn;
 //import javax.persistence.ManyToOne;
 import javax.validation.constraints.Digits;
@@ -20,6 +25,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
@@ -35,14 +41,14 @@ public class Address implements Serializable {
 
 	@NotNull
 	@NotEmpty
-	@Size(min = 1, max = 20, message = "1-20 letters and spaces")
-	@Pattern(regexp = "[A-Za-z ]*", message = "Only letters and spaces")
+	@Size(min = 1, max = 20, message = "1-20 numbers, letters and spaces")
+	@Pattern(regexp = "[A-Za-z0-9 ]*", message = "Only numbers, letters and spaces")
 	private String address1;
 
 	@NotNull
 	@NotEmpty
-	@Size(min = 1, max = 20, message = "1-20 letters and spaces")
-	@Pattern(regexp = "[A-Za-z ]*", message = "Only letters and spaces")
+	@Size(min = 1, max = 20, message = "1-20 numbers, letters and spaces")
+	@Pattern(regexp = "[A-Za-z0-9 ]*", message = "Only numbers, letters and spaces")
 	private String address2;
 
 	@Size(min = 0, max = 30, message = "1-30 letters and spaces")
@@ -51,12 +57,12 @@ public class Address implements Serializable {
 
 	@NotNull
 	@Size(min = 2, max = 2, message = "2 letters ")
-	@Pattern(regexp = "[A-Za-z ]*", message = "Only letters and spaces")
+	@Pattern(regexp = "[A-Za-z]*", message = "Only letters and spaces")
 	private String state;
 
 	@NotNull
 	@Size(min = 5, max = 5, message = "5 Numbers")
-	@Digits(fraction = 0, integer = 8, message = "Not valid")
+	@Digits(fraction = 0, integer = 5, message = "Not valid")
 	@Column(name = "zip1")
 	private String zip1;
 
@@ -68,7 +74,31 @@ public class Address implements Serializable {
 
 	@OneToOne
 	@JoinColumn(name = "patientId")
+	@JsonBackReference
 	private Patient patient;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date createDate;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date lastUpdateDate;
+
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	public Date getLastUpdateDate() {
+		return lastUpdateDate;
+	}
+
+	public void setLastUpdateDate(Date lastUpdateDate) {
+		this.lastUpdateDate = lastUpdateDate;
+	}
 
 	public long getId() {
 		return id;
@@ -138,7 +168,7 @@ public class Address implements Serializable {
 		this.patient = patient;
 	}
 
-	public void setAssociatedPatient(Patient patient) {
+	public void setParent(Patient patient) {
 		this.patient = patient;
 	}
 

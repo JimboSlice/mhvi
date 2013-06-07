@@ -3,6 +3,8 @@ package com.yenrof.mhvi.model;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+
 import java.util.Date;
 
 
@@ -50,8 +52,9 @@ public class SixMonthHistory implements java.io.Serializable {
 	}
 
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinColumn(name = "sexualHistoryId" )	    	
-    	private SexualHistory sexualHistory;
+	@JoinColumn(name = "sexualHistoryId" )
+	@JsonBackReference
+    private SexualHistory sexualHistory;
 
 
 	public SixMonthHistory() {

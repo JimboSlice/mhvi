@@ -3,6 +3,8 @@ package com.yenrof.mhvi.model;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+
 import java.util.Date;
 import java.util.List;
 
@@ -52,6 +54,7 @@ public class SexualHistory implements java.io.Serializable {
 	
 	@OneToOne
     	@JoinColumn(name="patientId")
+	@JsonBackReference
     	private Patient patient;
 
 	//one-to-many association to sixmonthhistory

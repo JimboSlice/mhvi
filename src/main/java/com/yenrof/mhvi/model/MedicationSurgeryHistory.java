@@ -2,9 +2,11 @@ package com.yenrof.mhvi.model;
 
 import javax.persistence.*;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonManagedReference;
+
 import java.util.Date;
 import java.util.List;
-
 
 /**
  * The persistent class for the MedicationSurgeryHistory database table.
@@ -12,15 +14,14 @@ import java.util.List;
  */
 @Entity
 @Table(name = "MedicationSurgeryHistory")
-@NamedQuery(name="MedicationSurgeryHistory.findAll", query="SELECT m FROM MedicationSurgeryHistory m")
+@NamedQuery(name = "MedicationSurgeryHistory.findAll", query = "SELECT m FROM MedicationSurgeryHistory m")
 public class MedicationSurgeryHistory implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-    	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	 
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	
+
 	private boolean allergies;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -38,22 +39,25 @@ public class MedicationSurgeryHistory implements java.io.Serializable {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date lastUpdateDate;
-	
-	@OneToOne
-    	@JoinColumn(name="patientId")
-    	private Patient patient;
 
-	//one-to-many association to surgeries
-	@OneToMany(mappedBy="medicationSurgeryHistory")
+	@OneToOne
+	@JsonBackReference
+	@JoinColumn(name = "patientId")
+	private Patient patient;
+
+	// one-to-many association to surgeries
+	@OneToMany(mappedBy = "medicationSurgeryHistory")
+	@JsonManagedReference
 	private List<Surgery> surgeries;
-	
-	//one-to-many association to meds
-	@OneToMany(mappedBy="medicationSurgeryHistory")
+
+	// one-to-many association to meds
+	@OneToMany(mappedBy = "medicationSurgeryHistory")
+	@JsonManagedReference
 	private List<Medication> medications;
-	
+
 	public MedicationSurgeryHistory() {
 	}
-	
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -70,7 +74,7 @@ public class MedicationSurgeryHistory implements java.io.Serializable {
 		this.medications = medications;
 	}
 
-	public long  getId() {
+	public long getId() {
 		return this.id;
 	}
 
@@ -169,7 +173,5 @@ public class MedicationSurgeryHistory implements java.io.Serializable {
 	public void setMedications(List<Medication> medications) {
 		this.medications = medications;
 	}
-
-	
 
 }

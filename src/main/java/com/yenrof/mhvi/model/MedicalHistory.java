@@ -14,6 +14,8 @@ import javax.persistence.TemporalType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+
 
 
 /**
@@ -38,9 +40,6 @@ public class MedicalHistory implements java.io.Serializable {
 
 	private boolean chestPain;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date createDate;
-
 	private boolean currentSmoker;
 
 	private boolean depression;
@@ -57,9 +56,6 @@ public class MedicalHistory implements java.io.Serializable {
 
 	private boolean hypothyroidism;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date lastUpdateDate;
-
 	private boolean lowTestostrone;
 
 	private boolean prostateCancer;
@@ -73,9 +69,16 @@ public class MedicalHistory implements java.io.Serializable {
 	private boolean prostateCancerTreatment;
 
 	private boolean stroke;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date createDate;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date lastUpdateDate;
 
 	@OneToOne
 	@JoinColumn(name = "patientId")
+	@JsonBackReference
 	private Patient patient;
 
 	public MedicalHistory() {
@@ -268,5 +271,10 @@ public class MedicalHistory implements java.io.Serializable {
 	public void setId(long id) {
 		this.id = id;
 	}
+	
+	public void setParent(Patient patient) {
+		this.patient = patient;
+	}
+
 
 }

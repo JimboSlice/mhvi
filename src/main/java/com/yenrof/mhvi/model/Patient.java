@@ -19,9 +19,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-
-
-
 import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -39,7 +36,7 @@ public class Patient implements Serializable {
 	@NotEmpty
 	@Size(min = 1, max = 30, message = "Last Name must be 1-30 letters and spaces")
 	@Pattern(regexp = "[A-Za-z ]*", message = "Last Name can contain only letters and spaces")
-	private String lastName;
+	public String lastName;
 
 	@NotNull
 	@NotEmpty
@@ -85,34 +82,42 @@ public class Patient implements Serializable {
 	private String referringPhysicianSpecialty;
 
 	// bi-directional one-to-one association to MedicalHistory
+	@JsonManagedReference
 	@OneToOne(mappedBy = "patient", cascade = CascadeType.ALL)
 	private MedicalHistory medicalHistory;
 
 	// bi-directional one-to-one association to MedicationSurgeryHistory
+	@JsonManagedReference
 	@OneToOne(mappedBy = "patient", cascade = CascadeType.ALL)
 	private MedicationSurgeryHistory medicationSurgeryHistory;
 
 	// bi-directional one-to-one association to SexualHistory
+	@JsonManagedReference
 	@OneToOne(mappedBy = "patient", cascade = CascadeType.ALL)
 	private SexualHistory sexualHistory;
 
 	// bi-directional one-to-one association to Address
+	@JsonManagedReference
 	@OneToOne(mappedBy = "patient", cascade = CascadeType.ALL)
 	private Address address;
 
 	// bi-directional one-to-one association to PreviousTreatment
+	@JsonManagedReference
 	@OneToOne(mappedBy = "patient", cascade = CascadeType.ALL)
 	private PreviousTreatment previousTreatment;
 
 	// bi-directional one-to-one association to PreviousEvaluation
+	@JsonManagedReference
 	@OneToOne(mappedBy = "patient", cascade = CascadeType.ALL)
 	private PreviousEvaluation previousEvaluation;
 
 	// bi-directional one-to-one association to RiskFactor
+	@JsonManagedReference
 	@OneToOne(mappedBy = "patient", cascade = CascadeType.ALL)
 	private RiskFactor riskFactor;
 
 	// bi-directional one-to-one association to TestosteroneDeficiency
+	@JsonManagedReference
 	@OneToOne(mappedBy = "patient", cascade = CascadeType.ALL)
 	private TestosteroneDeficiency testosteroneDeficiency;
 
@@ -250,6 +255,7 @@ public class Patient implements Serializable {
 	}
 
 	public void setMedicalHistory(MedicalHistory medicalHistory) {
+		medicalHistory.setParent(this);
 		this.medicalHistory = medicalHistory;
 	}
 
@@ -310,20 +316,18 @@ public class Patient implements Serializable {
 		return serialVersionUID;
 	}
 
-	
-
 	public void setId(long id) {
 		this.id = id;
 	}
 
 	public void addContactPhone(ContactPhone contactPhone) {
 		contactPhone.setParent(this);
-		this.contactPhone=contactPhone;
+		this.contactPhone = contactPhone;
 	}
 
 	public void addContactEmail(ContactEmail contactEmail) {
 		contactEmail.setParent(this);
-		this.contactEmail=contactEmail;
+		this.contactEmail = contactEmail;
 	}
 
 	public ContactEmail getContactEmail() {
@@ -331,6 +335,7 @@ public class Patient implements Serializable {
 	}
 
 	public void setContactEmail(ContactEmail contactEmail) {
+		contactEmail.setParent(this);
 		this.contactEmail = contactEmail;
 	}
 
@@ -339,12 +344,12 @@ public class Patient implements Serializable {
 	}
 
 	public void setContactPhone(ContactPhone contactPhone) {
+		contactPhone.setParent(this);
 		this.contactPhone = contactPhone;
 	}
 
 	public void addAddress(Address address) {
-		address.setAssociatedPatient(this);
-		// this.addresses.add(address);
+		address.setParent(this);
 		this.address = address;
 	}
 
@@ -390,6 +395,7 @@ public class Patient implements Serializable {
 	}
 
 	public void setAddress(Address address) {
+		address.setParent(this);
 		this.address = address;
 	}
 }

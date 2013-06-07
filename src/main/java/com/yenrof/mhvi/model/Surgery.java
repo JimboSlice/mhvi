@@ -3,6 +3,8 @@ package com.yenrof.mhvi.model;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+
 import java.util.Date;
 
 
@@ -33,8 +35,9 @@ public class Surgery implements java.io.Serializable {
 	private Date lastUpdateDate;
 	
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinColumn(name = "medsurgeryhistoryId" )	    	
-    	private MedicationSurgeryHistory medicationSurgeryHistory;
+	@JoinColumn(name = "medsurgeryhistoryId" )
+	@JsonBackReference
+    private MedicationSurgeryHistory medicationSurgeryHistory;
 
 	
 	

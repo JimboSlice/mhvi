@@ -3,6 +3,8 @@ package com.yenrof.mhvi.model;
 import java.io.Serializable;
 
 
+import java.util.Date;
+
 //import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 //import javax.persistence.FetchType;
@@ -14,11 +16,14 @@ import javax.persistence.JoinColumn;
 //import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 //import javax.xml.bind.annotation.XmlRootElement;
+
 
 import org.codehaus.jackson.annotate.JsonBackReference;
 
@@ -46,6 +51,29 @@ public class ContactPhone implements Serializable {
 	@JoinColumn(name = "patientId")
 	@JsonBackReference
 	private Patient patient;
+	
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	public Date getLastUpdateDate() {
+		return lastUpdateDate;
+	}
+
+	public void setLastUpdateDate(Date lastUpdateDate) {
+		this.lastUpdateDate = lastUpdateDate;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date createDate;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date lastUpdateDate;
+
 
 	public long getId() {
 		return id;
