@@ -37,7 +37,7 @@ public class PatientRepository {
         // feature in JPA 2.0
         // criteria.select(Patient).where(cb.equal(Patient.get(Patient_.name), ssn));
         criteria.select(Patient).where(cb.equal(Patient.get("ssn"), ssn));
-        return em.createQuery(criteria).getSingleResult();
+        return em.createQuery(criteria).getSingleResult(); 
     }
 
     public List<Patient> findAllOrderedByName() {
