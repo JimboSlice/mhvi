@@ -130,7 +130,7 @@ public class PreviousEvaluation implements java.io.Serializable {
 		this.tlmResult = tlmResult;
 	}
 	
-	public void setAssociatedPatient(Patient patient) {	
+	public void setParent(Patient patient) {	
 		this.patient = patient;
 	}
 	

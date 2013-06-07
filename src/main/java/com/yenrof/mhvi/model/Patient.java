@@ -358,7 +358,7 @@ public class Patient implements Serializable {
 	}
 
 	public void setPreviousTreatment(PreviousTreatment previousTreatment) {
-		previousTreatment.setAssociatedPatient(this);
+		previousTreatment.setParent(this);
 		this.previousTreatment = previousTreatment;
 	}
 
@@ -367,7 +367,7 @@ public class Patient implements Serializable {
 	}
 
 	public void setPreviousEvaluation(PreviousEvaluation previousEvaluation) {
-		previousEvaluation.setAssociatedPatient(this);
+		previousEvaluation.setParent(this);
 		this.previousEvaluation = previousEvaluation;
 	}
 

@@ -184,7 +184,7 @@ public class PreviousTreatment implements java.io.Serializable {
 		this.vacumnEffective = vacumnEffective;
 	}
 	
-	public void setAssociatedPatient(Patient patient) {
+	public void setParent(Patient patient) {
 		this.patient = patient;
 	}
 	

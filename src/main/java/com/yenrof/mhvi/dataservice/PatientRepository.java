@@ -59,35 +59,50 @@ public class PatientRepository {
     
     public void register(Patient patient) throws Exception {
         log.info("Registering " + patient.getFirstName() + " " + patient.getLastName());
-        patient.setCreateDate(new Date());
-        patient.setLastUpdateDate(new Date());
+        Date date = new Date();
+        patient.setCreateDate(date);
+        patient.setLastUpdateDate(date);
         ContactEmail contactEmail = patient.getContactEmail();
         if (contactEmail!=null ){
         	patient.addContactEmail(contactEmail);
-        	contactEmail.setCreateDate(new Date());
-        	contactEmail.setLastUpdateDate(new Date());
+        	contactEmail.setCreateDate(date);
+        	contactEmail.setLastUpdateDate(date);
         	em.persist(contactEmail);	
         }
         ContactPhone contactPhone = patient.getContactPhone();
         if (contactPhone!=null ){
         	patient.addContactPhone(contactPhone);
-        	contactPhone.setCreateDate(new Date());
-        	contactPhone.setLastUpdateDate(new Date());
+        	contactPhone.setCreateDate(date);
+        	contactPhone.setLastUpdateDate(date);
         	em.persist(contactPhone);	
         }
         Address address = patient.getAddress();
         if (address!=null ){
         	patient.addAddress(address);
-        	address.setCreateDate(new Date());
-        	address.setLastUpdateDate(new Date());
+        	address.setCreateDate(date);
+        	address.setLastUpdateDate(date);
         	em.persist(address);	
         }
         MedicalHistory medicalHistory = patient.getMedicalHistory();
         if (medicalHistory!=null ){
         	patient.setMedicalHistory(medicalHistory);
-        	medicalHistory.setCreateDate(new Date());
-        	medicalHistory.setLastUpdateDate(new Date());
+        	medicalHistory.setCreateDate(date);
+        	medicalHistory.setLastUpdateDate(date);
         	em.persist(medicalHistory);	
+        }
+        PreviousEvaluation previousEvaluation = patient.getPreviousEvaluation();
+        if (previousEvaluation!=null ){
+        	patient.setPreviousEvaluation(previousEvaluation);
+        	previousEvaluation.setCreateDate(date);
+        	previousEvaluation.setLastUpdateDate(date);
+        	em.persist(previousEvaluation);	
+        }
+        PreviousTreatment previousTreatment = patient.getPreviousTreatment();
+        if (previousEvaluation!=null ){
+        	patient.setPreviousTreatment(previousTreatment);
+        	previousTreatment.setCreateDate(date);
+        	previousTreatment.setLastUpdateDate(date);
+        	em.persist(previousTreatment);	
         }
         em.persist(patient);  
     }
