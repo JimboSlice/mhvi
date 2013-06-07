@@ -23,7 +23,7 @@
 		<class>com.yenrof.mhvi.model.RiskFactor</class>
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
-			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
+		 	<property name="hibernate.hbm2ddl.auto" value="create-drop" />
 			<property name="show_sql" value="true" />
 		</properties>
 	</persistence-unit>
