@@ -46,12 +46,12 @@ public class MedicationSurgeryHistory implements java.io.Serializable {
 	private Patient patient;
 
 	// one-to-many association to surgeries
-	@OneToMany(mappedBy = "medicationSurgeryHistory",fetch=FetchType.EAGER)
+	@OneToMany(mappedBy = "medicationSurgeryHistory")
 	@JsonManagedReference
 	private List<Surgery> surgeries;
 
 	// one-to-many association to meds
-	@OneToMany(mappedBy = "medicationSurgeryHistory",fetch=FetchType.LAZY)
+	@OneToMany(mappedBy = "medicationSurgeryHistory")
 	@JsonManagedReference
 	private List<Medication> medications;
 
