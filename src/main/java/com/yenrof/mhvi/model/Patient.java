@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -23,6 +24,9 @@ import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
+
+@NamedQuery(name="Patient.findAll", query="SELECT p FROM Patient p")
+ 
 @Table(name = "Patient", uniqueConstraints = @UniqueConstraint(columnNames = "ssn"))
 public class Patient implements Serializable {
 	/** Default value included to remove warning. Remove or modify at will. **/

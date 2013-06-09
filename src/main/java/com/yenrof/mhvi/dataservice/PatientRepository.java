@@ -3,12 +3,16 @@ package com.yenrof.mhvi.dataservice;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
+import javax.persistence.Query;
+//import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -18,7 +22,7 @@ import com.yenrof.mhvi.model.*;
 @ApplicationScoped
 public class PatientRepository { 
 
-    @Inject
+	@PersistenceContext(unitName="myJPA", type=PersistenceContextType.TRANSACTION)
     private EntityManager em;
     
     @Inject
@@ -26,7 +30,11 @@ public class PatientRepository {
 
 
     public Patient findById(Long id) {
-        return em.find(Patient.class, id);
+        Patient patient=em.find(Patient.class, id);
+        patient.getMedicationSurgeryHistory().getMedications().size();
+        patient.getSexualHistory().getSixMonthHistories().size();
+        return patient;
+
     }
 
     public Patient findBySsn(String ssn) {
@@ -40,7 +48,8 @@ public class PatientRepository {
         return em.createQuery(criteria).getSingleResult(); 
     }
 
-    public List<Patient> findAllOrderedByName() {
+    @SuppressWarnings("unchecked")
+	public List<Patient> findAllOrderedByName() {
         /* CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Patient> criteria = cb.createQuery(Patient.class);
         Root<Patient> Patient = criteria.from(Patient.class);
@@ -48,14 +57,26 @@ public class PatientRepository {
         // feature in JPA 2.0
         // criteria.select(Patient).orderBy(cb.asc(Patient.get(Patient_.name)));
         criteria.select(Patient).orderBy(cb.asc(Patient.get("lastName")));
-        return em.createQuery(criteria).getResultList(); */
+        return em.createQuery(criteria).getResultList(); 
         CriteriaBuilder cb = em.getCriteriaBuilder();
     	CriteriaQuery<Patient> cq = cb.createQuery(Patient.class);
     	Root <Patient> from = cq.from(Patient.class);
     	cq.orderBy(cb.asc(from.get("lastName")));
     	TypedQuery<Patient> query = em.createQuery(cq);
-    	return query.getResultList();
-    }
+    	return query.getResultList();*/
+    	 Query query=em.createNamedQuery("Patient.findAll");
+         List<Patient> list = query.getResultList();
+         Iterator<Patient> itr=list.iterator();
+         while(itr.hasNext()){
+        	 Patient patient=itr.next();
+           System.out.print("getLastName:"+patient.getLastName());
+           System.out.print(" getFirstName:"+ patient.getFirstName());
+           patient.getMedicationSurgeryHistory().getMedications().size();
+           patient.getSexualHistory().getSixMonthHistories().size();
+           System.out.println();
+         }  
+         return list;
+      }
     
     public void register(Patient patient) throws Exception {
         log.info("Registering " + patient.getFirstName() + " " + patient.getLastName());
