@@ -123,6 +123,10 @@ public class SixMonthHistory implements java.io.Serializable {
 	public void setSatisfaction(int satisfaction) {
 		this.satisfaction = satisfaction;
 	}
+	
+	public void setParent(SexualHistory sexualHistory) {
+		this.sexualHistory = sexualHistory;
+	}
 
 	
 

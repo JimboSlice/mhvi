@@ -98,11 +98,67 @@ public class PatientRepository {
         	em.persist(previousEvaluation);	
         }
         PreviousTreatment previousTreatment = patient.getPreviousTreatment();
-        if (previousEvaluation!=null ){
+        if (previousTreatment!=null ){
         	patient.setPreviousTreatment(previousTreatment);
         	previousTreatment.setCreateDate(date);
         	previousTreatment.setLastUpdateDate(date);
         	em.persist(previousTreatment);	
+        }
+        TestosteroneDeficiency testosteroneDeficiency=patient.getTestosteroneDeficiency();
+        if (testosteroneDeficiency!=null ){
+        	patient.setTestosteroneDeficiency(testosteroneDeficiency);
+        	testosteroneDeficiency.setCreateDate(date);
+        	testosteroneDeficiency.setLastUpdateDate(date);
+        	em.persist(testosteroneDeficiency);	
+        }
+
+        RiskFactor riskFactor = patient.getRiskFactor();
+        if (riskFactor!=null ){
+        	patient.setRiskFactor(riskFactor);
+        	riskFactor.setCreateDate(date);
+        	riskFactor.setLastUpdateDate(date);
+        	em.persist(riskFactor);	
+        }
+        SexualHistory sexualHistory = patient.getSexualHistory();
+        if (sexualHistory!=null ){
+        	patient.setSexualHistory(sexualHistory);
+        	sexualHistory.setCreateDate(date); 
+        	sexualHistory.setLastUpdateDate(date);
+        	if (sexualHistory.getSixMonthHistories()!=null ) {
+        		List <SixMonthHistory> theList=sexualHistory.getSixMonthHistories();
+        		for (int count=sexualHistory.getSixMonthHistories().size(), current=0; current < count; current++) {
+        			theList.get(current).setParent(sexualHistory);
+        			theList.get(current).setCreateDate(date);
+        			theList.get(current).setLastUpdateDate(date);
+        			em.persist(theList.get(current));
+        		}
+        	}
+        	em.persist(sexualHistory);	
+        }
+        MedicationSurgeryHistory medicationSurgeryHistory = patient.getMedicationSurgeryHistory();
+        if (medicationSurgeryHistory!=null ){
+        	patient.setMedicationSurgeryHistory(medicationSurgeryHistory);
+        	previousTreatment.setCreateDate(date);
+        	previousTreatment.setLastUpdateDate(date);
+        	if (medicationSurgeryHistory.getSurgery()!=null ) {
+        		List <Surgery> theList=medicationSurgeryHistory.getSurgery();
+        		for (int count=medicationSurgeryHistory.getSurgery().size(), current=0; current < count; current++) {
+        			theList.get(current).setParent(medicationSurgeryHistory);
+        			theList.get(current).setCreateDate(date);
+        			theList.get(current).setLastUpdateDate(date);
+        			em.persist(theList.get(current));
+        		}
+        	}
+        	if (medicationSurgeryHistory.getMedications()!=null ) {
+        		List <Medication> theList=medicationSurgeryHistory.getMedications();
+        		for (int count=medicationSurgeryHistory.getMedications().size(), current=0; current < count; current++) {
+        			theList.get(current).setParent(medicationSurgeryHistory);
+        			theList.get(current).setCreateDate(date);
+        			theList.get(current).setLastUpdateDate(date);
+        			em.persist(theList.get(current));
+        		}
+        	}
+        	em.persist(medicationSurgeryHistory);	
         }
         em.persist(patient);  
     }

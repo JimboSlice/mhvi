@@ -105,5 +105,10 @@ public class Medication implements java.io.Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	
+	public void setParent(MedicationSurgeryHistory medicationSurgeryHistory) {
+		this.medicationSurgeryHistory = medicationSurgeryHistory;
+	}
+
 
 }

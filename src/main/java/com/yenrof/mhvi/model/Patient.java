@@ -263,8 +263,8 @@ public class Patient implements Serializable {
 		return medicationSurgeryHistory;
 	}
 
-	public void setMedicationSurgeryHistory(
-			MedicationSurgeryHistory medicationSurgeryHistory) {
+	public void setMedicationSurgeryHistory(MedicationSurgeryHistory medicationSurgeryHistory) {
+		medicationSurgeryHistory.setParent(this);
 		this.medicationSurgeryHistory = medicationSurgeryHistory;
 	}
 

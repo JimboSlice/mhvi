@@ -146,15 +146,11 @@ public class MedicationSurgeryHistory implements java.io.Serializable {
 		return surgeries;
 	}
 
-	public List<Medication> getMedication() {
-		return medications;
-	}
-
 	public Patient getPatient() {
 		return patient;
 	}
 
-	public void setPatient(Patient patient) {
+	public void setParent(Patient patient) {
 		this.patient = patient;
 	}
 
