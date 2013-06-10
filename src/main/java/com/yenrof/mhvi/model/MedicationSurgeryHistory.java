@@ -5,6 +5,7 @@ import javax.persistence.*;
 import org.codehaus.jackson.annotate.JsonBackReference;
 import org.codehaus.jackson.annotate.JsonManagedReference;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -48,12 +49,12 @@ public class MedicationSurgeryHistory implements java.io.Serializable {
 	// one-to-many association to surgeries
 	@OneToMany(mappedBy = "medicationSurgeryHistory")
 	@JsonManagedReference
-	private List<Surgery> surgeries;
+	private List<Surgery> surgeries=new ArrayList<Surgery>();
 
 	// one-to-many association to meds
 	@OneToMany(mappedBy = "medicationSurgeryHistory")
 	@JsonManagedReference
-	private List<Medication> medications;
+	private List<Medication> medications=new ArrayList<Medication>();
 
 	public MedicationSurgeryHistory() {
 	}

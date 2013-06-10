@@ -5,6 +5,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -59,7 +60,7 @@ public class SexualHistory implements java.io.Serializable {
 
 	//one-to-many association to sixmonthhistory
     	@OneToMany(mappedBy="sexualHistory")
-   	private List<SixMonthHistory> sixMonthHistories;
+   	private List<SixMonthHistory> sixMonthHistories= new ArrayList<SixMonthHistory>();
 
 	public SexualHistory() {
 	}
